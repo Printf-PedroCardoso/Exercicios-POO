@@ -1,4 +1,4 @@
-package aula0109.lista01.exe01;
+package Main.aula0109.lista01.exe01;
 
 import java.util.Scanner;
 

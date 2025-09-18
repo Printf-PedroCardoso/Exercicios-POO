@@ -1,4 +1,4 @@
-package aula0109.lista01.exe02;
+package Main.aula0109.lista01.exe02;
 
 public class Calculadora {
     public static void main(String[] args) {

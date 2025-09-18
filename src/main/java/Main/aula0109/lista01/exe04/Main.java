@@ -1,4 +1,4 @@
-package aula0109.lista01.exe04;
+package Main.aula0109.lista01.exe04;
 /*
 4. Escrever um algoritmo que lê:
         - a porcentagem do IPI a ser acrescido no valor das peças
