@@ -1,4 +1,4 @@
-package Main.exe05;
+package Main.Aula0909.exe05;
 
 public enum EnumFormaPagamento {
     DINHEIRO,

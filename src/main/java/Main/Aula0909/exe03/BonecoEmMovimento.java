@@ -1,4 +1,4 @@
-package Main.exe03;
+package Main.Aula0909.exe03;
 
 public class BonecoEmMovimento {
     String nome;

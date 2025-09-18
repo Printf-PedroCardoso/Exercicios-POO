@@ -1,4 +1,4 @@
-package Main.exe02;
+package Main.Aula0909.exe02;
 
 public class TextoSaida {
     String texto;

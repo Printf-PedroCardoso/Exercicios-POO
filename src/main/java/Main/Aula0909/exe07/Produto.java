@@ -1,4 +1,4 @@
-package Main.exe07;
+package Main.Aula0909.exe07;
 
 public class Produto {
     String nome;

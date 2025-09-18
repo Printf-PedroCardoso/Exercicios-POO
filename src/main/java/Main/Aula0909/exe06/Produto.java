@@ -1,4 +1,4 @@
-package Main.exe06;
+package Main.Aula0909.exe06;
 
 public class Produto {
     String codigo;
