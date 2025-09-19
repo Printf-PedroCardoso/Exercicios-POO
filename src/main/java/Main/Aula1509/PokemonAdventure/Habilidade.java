@@ -13,7 +13,8 @@ public class Habilidade {
 
     public void usar ()
     {
-
+        System.out.println("A habilidade " + this.nome + "do tipo "
+                + this.tipo + " foi usada!");
     }
 
     public String getNome() {

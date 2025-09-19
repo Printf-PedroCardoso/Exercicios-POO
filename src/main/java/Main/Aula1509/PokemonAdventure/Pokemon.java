@@ -79,7 +79,7 @@ public class Pokemon {
         }
     }
 
-    public void tentarEvoluirComItem(ItemEvolucao itemUsado) {
+        public void tentarEvoluirComItem(ItemEvolucao itemUsado) {
         System.out.println("Usando " + itemUsado.getNome() + " em " + this.nome + "...");
 
         // Procura na sua própria cadeia evolutiva por uma correspondência

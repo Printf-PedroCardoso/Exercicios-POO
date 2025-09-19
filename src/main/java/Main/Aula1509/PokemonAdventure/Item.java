@@ -1,6 +1,6 @@
 package Main.Aula1509.PokemonAdventure;
 
-public class Item {
+public abstract class Item {
     private String nome;
     private String efeito;
 
@@ -9,10 +9,7 @@ public class Item {
         this.efeito = efeito;
     }
 
-    public void aplicar(Pokemon p)
-    {
-
-    }
+    abstract void aplicar(Pokemon p);
 
     // Getters
 
