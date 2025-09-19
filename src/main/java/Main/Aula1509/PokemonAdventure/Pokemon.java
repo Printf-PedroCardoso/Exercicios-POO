@@ -52,8 +52,8 @@ public class Pokemon {
             habilidade = Skills.get(i);
             System.out.println(
                     i+1 + ". "
-                    + habilidade.getNome() + " / "
-                    + habilidade.getTipo() + " / "
+                    + habilidade.getNome() + " / Tipo: "
+                    + habilidade.getTipo() + " / Poder: "
                     + habilidade.getPoder());
         }
 

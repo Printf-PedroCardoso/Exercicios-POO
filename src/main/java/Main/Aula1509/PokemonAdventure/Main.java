@@ -34,6 +34,38 @@ public class Main {
         Pokemon pikachu = new Pokemon("Pikachu", "Elétrico", 10, cadeiaPikachu, 0);
         Pokemon staryu = new Pokemon("Staryu", "Água", 9); // Pokémon sem evolução para simplificar
 
+        System.out.println("Criando e atribuindo habilidades...");
+
+        // 1. Habilidades Elétricas e Normais
+        Habilidade thunderShock = new Habilidade("Thunder Shock", "Elétrico", 40);
+        Habilidade quickAttack = new Habilidade("Quick Attack", "Normal", 14);
+
+        // 2. Habilidades de Água e Normais
+        Habilidade waterGun = new Habilidade("Water Gun", "Água", 40);
+        Habilidade tackle = new Habilidade("Tackle", "Normal", 23);
+        Habilidade bubble = new Habilidade("Bubble", "Água", 13);
+
+        // --- Criando e atribuindo os "movesets" ---
+
+        // Moveset do Pikachu
+        ArrayList<Habilidade> skillsPikachu = new ArrayList<>();
+        skillsPikachu.add(thunderShock);
+        skillsPikachu.add(quickAttack);
+        pikachu.setSkills(skillsPikachu);
+
+        // Moveset do Squirtle
+        ArrayList<Habilidade> skillsSquirtle = new ArrayList<>();
+        skillsSquirtle.add(waterGun);
+        skillsSquirtle.add(tackle);
+        squirtle.setSkills(skillsSquirtle);
+
+        // Moveset do Staryu
+        ArrayList<Habilidade> skillsStaryu = new ArrayList<>();
+        skillsStaryu.add(bubble);
+        skillsStaryu.add(tackle);
+        staryu.setSkills(skillsStaryu);
+
+
         System.out.println("Configuração concluída.\n");
 
         // --- Seção 2: Teste de Captura de Pokémons ---
