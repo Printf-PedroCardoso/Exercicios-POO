@@ -3,6 +3,7 @@ package Main.Trabalho0910;
 public class Main {
     public static void main(String[] args) {
 
+
         System.out.println("### 1. Criando Akuma no Mi ###");
         AkumaNoMi gomuGomu = new AkumaNoMi("Gomu Gomu no Mi", TipoFruta.PARAMECIA, "Transforma o corpo do usuário em borracha.");
         AkumaNoMi meraMera = new AkumaNoMi("Mera Mera no Mi", TipoFruta.LOGIA, "Permite ao usuário criar, controlar e se transformar em fogo.");
