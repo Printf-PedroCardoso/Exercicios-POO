@@ -37,7 +37,7 @@ public class Main {
         System.out.println("Criando e atribuindo habilidades...");
 
         // 1. Habilidades Elétricas e Normais
-        Habilidade thunderShock = new Habilidade("Thunder Shock", "Elétrico", 40);
+        Habilidade thunderShock = new Habilidade("Thunder Shock", "Elétrico", 50);
         Habilidade quickAttack = new Habilidade("Quick Attack", "Normal", 14);
 
         // 2. Habilidades de Água e Normais

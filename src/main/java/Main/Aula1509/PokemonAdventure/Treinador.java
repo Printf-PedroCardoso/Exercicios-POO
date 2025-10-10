@@ -16,7 +16,9 @@ public class Treinador {
     public void capturarPokemons(Pokemon p) {
         if (p != null) {
             this.pokedex.add(p);
-            System.out.println(p.getNome() + " foi capturado!");
+            System.out.println(p.getNome() + " Lv:"
+                    + p.getNivel() + " foi capturado por "
+                        + this.nome + " com sucesso!");
         }
     }
 
@@ -32,7 +34,8 @@ public class Treinador {
                     i+1 + ". "
                     + pokemon.getNome() + " / Lv:"
                     + pokemon.getNivel() + " / Hp:"
-                    + pokemon.getVidaAtual() + " / "
+                    + pokemon.getVidaAtual() + "/"
+                    + pokemon.getVidaMaxima() + " / "
                     + pokemon.getTipo());
             }
             //System.out.println("Total de Pokémons: " + pokedex.size());

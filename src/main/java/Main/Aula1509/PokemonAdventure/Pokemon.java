@@ -107,6 +107,8 @@ public class Pokemon {
         this.nome = moldeEvolucao.getNome();
         this.tipo = moldeEvolucao.getTipo();
 
+        if (moldeEvolucao.getNivel() > this.nivel) this.nivel = moldeEvolucao.getNivel();
+
         // ... Lógica de aumento de status ...
         this.vidaMaxima += 30;
         this.vidaAtual = this.vidaMaxima;

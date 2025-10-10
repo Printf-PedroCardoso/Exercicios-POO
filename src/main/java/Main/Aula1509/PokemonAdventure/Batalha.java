@@ -75,6 +75,9 @@ public class Batalha {
 
                         pokemonOponente.receberDano(dano);
 
+                        if (pokemonOponente.getVidaAtual() < 0)
+                            pokemonOponente.setVidaAtual(0);
+
                         System.out.println(pokemonOponente.getNome() + " ficou com "
                                 + pokemonOponente.getVidaAtual() + " pontos de vida");
                         break;
@@ -109,12 +112,12 @@ public class Batalha {
                 }
             } while (!valido);
 
-            if (pokemonOponente.getVidaAtual() <= 0)
+            if (pokemonOponente.getVidaAtual() == 0)
             {
                 int nivelUpado = 3;
                 System.out.println(pokemonOponente.getNome() + " foi com Deus");
-                System.out.println(pokemonAtacante.getNome() + " venceu a batalha e subiu"
-                        + nivelUpado + "nive" + (nivelUpado>1 ? "is" : "l"));
+                System.out.println(pokemonAtacante.getNome() + " venceu a batalha e subiu "
+                        + nivelUpado + " nive" + (nivelUpado>1 ? "is" : "l"));
                 pokemonAtacante.setNivel(pokemonAtacante.getNivel() + nivelUpado);
                 pokemonAtacante.verificarEvolucaoPorNivel();
                 sair = true;
