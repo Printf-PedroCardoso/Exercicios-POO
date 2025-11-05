@@ -7,13 +7,11 @@ import java.time.LocalDateTime;
 public class AppFinanceiro {
 
     public static void main(String[] args) {
-        // Testando cálculo
         System.out.println("Teste 1: Divisão normal");
         calcularDivisao(10, 2);
         System.out.println("Teste 2: Divisão por zero");
         calcularDivisao(10, 0);
 
-        // Testando cadastro
         CadastroCliente cadastro = new CadastroCliente();
         try {
             System.out.println("Tentando cadastrar cliente...");
@@ -47,7 +45,7 @@ public class AppFinanceiro {
             writer.write(logEntry);
 
         } catch (IOException ioEx) {
-            System.err.println("!! FALHA CRÍTICA AO LOGAR ERRO: " + ioEx.getMessage());
+            System.err.println("Erro ao Logar!! : " + ioEx.getMessage());
         }
     }
 }

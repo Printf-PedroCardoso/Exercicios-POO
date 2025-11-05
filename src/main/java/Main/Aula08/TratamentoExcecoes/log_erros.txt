@@ -1,2 +1,4 @@
 2025-11-04T15:34:57.228018300 - ERRO: Divisão por zero não é permitida. (Detalhe: / by zero)
 2025-11-04T15:34:57.232032100 - ERRO: Nome não pode ser vazio e idade deve ser maior que 18.
+2025-11-04T21:30:07.935062400 - ERRO: Divisão por zero não é permitida. (Detalhe: / by zero)
+2025-11-04T21:30:07.941382300 - ERRO: Nome não pode ser vazio e idade deve ser maior que 18.
