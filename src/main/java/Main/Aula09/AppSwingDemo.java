@@ -1,5 +1,14 @@
 package Main.Aula09;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -20,8 +29,14 @@ public class AppSwingDemo extends JFrame {
         // ====== MENU SUPERIOR ======
         JMenuBar menuBar = new JMenuBar();
         JMenu menuArquivo = new JMenu("Arquivo");
+        JMenuItem itemCarregar = new JMenuItem("Carregar");
+        JMenuItem itemSalvar = new JMenuItem("Salvar");
         JMenuItem itemSair = new JMenuItem("Sair");
         itemSair.addActionListener(e -> System.exit(0));
+
+        menuArquivo.add(itemCarregar);
+        menuArquivo.add(itemSalvar);
+        menuArquivo.addSeparator();
         menuArquivo.add(itemSair);
         menuBar.add(menuArquivo);
         setJMenuBar(menuBar);
@@ -91,7 +106,7 @@ public class AppSwingDemo extends JFrame {
         // Adiciona o painel inferior completo ao painel principal
         painelPrincipal.add(painelInferior, BorderLayout.SOUTH);
 
-        // ====== EVENTOS ======
+        // ====== EVENTOS DE BOTÕES ======
         btnSalvar.addActionListener((ActionEvent e) -> {
             String nome = txtNome.getText();
             String genero = (String) cbGenero.getSelectedItem();
@@ -138,13 +153,154 @@ public class AppSwingDemo extends JFrame {
             if (resposta != JOptionPane.YES_OPTION)
                 return;
 
-            for (int i = linhasSelecionadas.length - 1; i >= 0; i--) {
-                int linhaView = linhasSelecionadas[i];
-                int linhaModelo = tabela.convertRowIndexToModel(linhaView);
-                modelo.removeRow(linhaModelo);
+            try {
+                for (int i = linhasSelecionadas.length - 1; i >= 0; i--) {
+                    int linhaView = linhasSelecionadas[i];
+                    int linhaModelo = tabela.convertRowIndexToModel(linhaView);
+                    modelo.removeRow(linhaModelo);
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Erro ao excluir linhas: " + ex.getMessage(),
+                        "Erro de Exclusão",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         });
+
+        // ====== EVENTOS DE ARQUIVO ======
+
+        //Salvar
+        itemSalvar.addActionListener(e -> {
+            JFileChooser seletorArquivo = new JFileChooser();
+            seletorArquivo.setDialogTitle("Salvar como");
+            // Filtro para sugerir/mostrar apenas .txt
+            seletorArquivo.setFileFilter(new javax.swing.filechooser.FileFilter() {
+                public boolean accept(File f) {
+                    return f.getName().toLowerCase().endsWith(".txt") || f.isDirectory();
+                }
+                public String getDescription() {
+                    return "Arquivo de Texto (.txt)";
+                }
+            });
+
+            int resultado = seletorArquivo.showSaveDialog(this);
+
+            if (resultado == JFileChooser.APPROVE_OPTION) {
+                File arquivoParaSalvar = seletorArquivo.getSelectedFile();
+
+                // Garante que o arquivo tenha a extensão .txt
+                String caminho = arquivoParaSalvar.getAbsolutePath();
+                if (!caminho.toLowerCase().endsWith(".txt")) {
+                    arquivoParaSalvar = new File(caminho + ".txt");
+                }
+
+                // Bloco Try-With-Resources: fecha o 'writer' automaticamente
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivoParaSalvar))) {
+
+                    // Salva os dados da tabela (Nome, Genero, Tipo)
+                    for (int i = 0; i < modelo.getRowCount(); i++) {
+                        String nome = (String) modelo.getValueAt(i, 0);
+                        String genero = (String) modelo.getValueAt(i, 1);
+                        String tipo = (String) modelo.getValueAt(i, 2);
+
+                        writer.write(nome + ";" + genero + ";" + tipo);
+                        writer.newLine();
+                    }
+
+                    JOptionPane.showMessageDialog(this,
+                            "Registros salvos com sucesso!",
+                            "Sucesso",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this,
+                            "Erro ao salvar o arquivo: " + ex.getMessage(),
+                            "Erro de I/O",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        //Carregar
+        itemCarregar.addActionListener(e -> {
+            JFileChooser seletorArquivo = new JFileChooser();
+            seletorArquivo.setDialogTitle("Abrir arquivo");
+            // Filtro para mostrar apenas .txt
+            seletorArquivo.setFileFilter(new javax.swing.filechooser.FileFilter() {
+                public boolean accept(File f) {
+                    return f.getName().toLowerCase().endsWith(".txt") || f.isDirectory();
+                }
+                public String getDescription() {
+                    return "Arquivo de Texto (.txt)";
+                }
+            });
+
+            int resultado = seletorArquivo.showOpenDialog(this);
+
+            if (resultado == JFileChooser.APPROVE_OPTION) {
+                File arquivoParaCarregar = seletorArquivo.getSelectedFile();
+
+                // Validar se arquivo é .txt
+                if (!arquivoParaCarregar.getName().toLowerCase().endsWith(".txt")) {
+                    JOptionPane.showMessageDialog(this,
+                            "Por favor, selecione um arquivo .txt válido.",
+                            "Tipo de Arquivo Inválido",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                List<String[]> dadosValidos = new ArrayList<>();
+
+                // Bloco Try-With-Resources
+                try (BufferedReader reader = new BufferedReader(new FileReader(arquivoParaCarregar))) {
+
+                    String linha;
+                    int numeroLinha = 1;
+
+                    while ((linha = reader.readLine()) != null) {
+                        // Ignora linhas em branco
+                        if (linha.trim().isEmpty()) {
+                            continue;
+                        }
+
+                        String[] dados = linha.split(";");
+
+                        // Validar estrutura da linha
+                        if (dados.length != 3) {
+                            JOptionPane.showMessageDialog(this,
+                                    "O arquivo está corrompido ou em formato inválido.\n" +
+                                            "Erro na linha " + numeroLinha + ": A estrutura não corresponde (Nome;Genero;Tipo).",
+                                    "Erro de Formato",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
+                        // Adicionar linha válida aos dados temporários
+                        dadosValidos.add(dados);
+                        numeroLinha++;
+                    }
+
+                    // Limpa tabela e adiciona dados
+                    modelo.setRowCount(0);
+                    for (String[] dados : dadosValidos) {
+                        modelo.addRow(dados);
+                    }
+
+                    JOptionPane.showMessageDialog(this,
+                            "Registros carregados com sucesso!",
+                            "Sucesso",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this,
+                            "Erro ao ler o arquivo: " + ex.getMessage(),
+                            "Erro de I/O",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
     }
 
     public static void main(String[] args) {
